@@ -7,11 +7,25 @@ table 123456701 "CSD Seminar"
         field(10;"No.";Code[20])
         {
             Caption = 'No.';
-           
+           trigger OnValidate();
+           begin
+               if "No." <> xrec."No." then begin
+                   SeminarSetup.get;
+                   NoSerieMgt.TestManual(SeminarSetup."Seminar Nos.");
+                   "No. Series" := '';
+               end;
+           end;
         }
         field(20;Name;Text[50])
         {
             Caption = 'Name';
+            trigger OnValidate();
+            begin
+                if ("Search Name" = UpperCase(xRec.Name)) or
+                ("Search Name" = '') then
+                 "Search Name" := Name;
+
+            end;
         }
         field(30;"Seminar Duration";Decimal)
         {
@@ -49,8 +63,8 @@ table 123456701 "CSD Seminar"
             Caption = 'Comment';
             Editable = false;
 
-            //FieldClass = FlowField;
-           // CalcFormula = exist("")
+            FieldClass = FlowField;
+            CalcFormula = exist("CSD Seminar Comment Line" where("Table Name" = const("Seminar"),"No."=field("No.")));
 
         }
         field(100;"Seminar Price";Decimal)
@@ -63,7 +77,13 @@ table 123456701 "CSD Seminar"
         {
             Caption = 'Gen. Prod. Posting Group';
             TableRelation = "Gen. Product Posting Group";
-            
+            trigger OnValidate();
+            begin
+                 if (xRec."Gen. Prod. Posting Group" <> "Gen. Prod. Posting Group") then begin
+                     If GenProdPostinGroup.ValidateVatProdPostingGroup(GenProdPostinGroup,"Gen. Prod. Posting Group") then
+                      validate("Vat Prod. Posting Group",GenProdPostinGroup."Def. VAT Prod. Posting Group");
+                 end;
+            end;
         }
         field(120;"Vat Prod. Posting Group";Code[10])
         {
@@ -94,25 +114,47 @@ table 123456701 "CSD Seminar"
     
     var
         SeminarSetup : Record "CSD Seminar Setup";
-        // Commentline :
+        Commentline : Record "CSD Seminar Comment Line";
         Seminar : Record "CSD Seminar";
         GenProdPostinGroup: Record "Gen. Product Posting Group";
         NoSerieMgt : Codeunit NoSeriesManagement;
 
     trigger OnInsert();
     begin
+        if "No." = '' THEN begin
+            SeminarSetup.get;
+            SeminarSetup.TestField("Seminar Nos.");
+            NoSerieMgt.InitSeries(SeminarSetup."Seminar Nos.",xRec."No. Series",0D,"No.","No. Series");
+        end;
     end;
 
     trigger OnModify();
     begin
+         "Last Datetime Modified" := CurrentDateTime;
     end;
 
     trigger OnDelete();
     begin
+           CommentLine.Reset;
+           Commentline.SetRange("Table Name",Commentline."Table Name"::Seminar);
+           Commentline.SetRange("No.","No.");
+           Commentline.DeleteAll;
     end;
 
     trigger OnRename();
     begin
     end;
+procedure AssistEdit() : Boolean ; 
 
+begin
+  With Seminar do begin
+         Seminar := Rec;
+         SeminarSetup.get;
+         SeminarSetup.Testfield("Seminar Nos.");
+         If NoSerieMgt.SelectSeries(SeminarSetup."Seminar Nos.",xrec."No. Series","No. Series") THEn begin
+             NoSerieMgt.SetSeries("No.");
+             exit(true);
+         end;
+      End;    
+end;
 }
