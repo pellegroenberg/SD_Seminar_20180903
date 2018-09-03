@@ -12,7 +12,7 @@ pageextension 12346798 CustomerListExt extends "Customer List"
 
     trigger OnClosePage();
     begin
-        Message('close page bauwau')
+        Message('close page bauwau2')
     end;
 }
 
