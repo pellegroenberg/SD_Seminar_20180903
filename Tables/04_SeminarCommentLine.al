@@ -9,8 +9,8 @@ table 123456704 "CSD Seminar Comment Line"
         field(10;"Table Name";Option)
         {
             Caption = 'Table Name';
-            OptionMembers="Seminar","Seminar registration header","Posted Seminar registration header";
-            OptionCaption = 'Seminar,Seminar registration header,Posted Seminar regionstration header';
+            OptionMembers="Seminar","Seminar Registration Header","Posted Seminar registration header";
+            OptionCaption = 'Seminar,Seminar Registration Header,Posted Seminar regionstration header';
             
         }
         field(20;"Document Line No.";integer)

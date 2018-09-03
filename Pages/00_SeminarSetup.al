@@ -21,7 +21,7 @@ page 123456700 "CSD Seminar Setup"
                 {
                     
                 }
-                field("Posted Semiar Reg. Nos.";"Posted Semiar Reg. Nos.")
+                field("Posted Semiar Reg. Nos.";"Posted Seminar Reg. Nos.")
                 {
                     
                 }
