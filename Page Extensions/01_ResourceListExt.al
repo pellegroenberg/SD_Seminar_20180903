@@ -7,20 +7,17 @@ pageextension 123456701 "CSD Resource List Ext" extends "Resource List"
             Visible = Showtype;
         }
         // Add changes to page layout here
-        addlast(Content)
+        addafter(Type)
         {
             field("CSD Resource Type"; "CSD Resource Type")
-            {
-
-            }
-            field("CSD Quantity Per Day"; "CSD Quantity Per Day")
             {
 
             }
             field("CSD Maximum Participants"; "CSD Maximum Participants")
             {
                 Visible = ShowMaxField;
-            }
+                Style = "Subordinate";
+                 }
         }
     }
 
@@ -31,10 +28,15 @@ pageextension 123456701 "CSD Resource List Ext" extends "Resource List"
 
     trigger OnOpenPage();
     begin
+        ShowMaxField := true;
         FilterGroup(3);
         ShowType := GetFilter(Type) = '';
+        if NOT Showtype then 
+          begin
         ShowMaxField := GetFilter(Type) = Format(Type::Machine);
+        end;
         FilterGroup(0)
+
     end;
 
     var
