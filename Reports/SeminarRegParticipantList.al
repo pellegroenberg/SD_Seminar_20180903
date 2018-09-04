@@ -1,4 +1,4 @@
-report 123456701 "CSD SeminarRegParticipantList"
+report 123456798 "CSD SeminarRegParticipantList"
 {
     UsageCategory = ReportsAndAnalysis;
     Caption= 'Seminar Reg.- Participant List';
@@ -42,7 +42,7 @@ report 123456701 "CSD SeminarRegParticipantList"
             {
                 IncludeCaption = true;
             }
-            dataitem(SeminarRegistrationLine; "CSD Seminar Registration Line")
+            dataitem(SeminarRegistrationLine; "CSD Posted Seminar Reg. Line")
             {
                 DataItemTableView = sorting ("Document No.","Line No.");
                 DataItemLink="Document No."=field("No.");
