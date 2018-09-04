@@ -16,6 +16,13 @@ pageextension 123456797 "Order Processor RC ext" extends "Order Processor Role C
                 RunObject = page 123456702;
                 Caption = 'Seminar list';
             }
+action(SeminarRegList)
+            {
+                RunObject = page 123456713;
+                Caption = 'Seminar Registration List';
+            }
+
+            
         }
         addlast(Navigation)
         {

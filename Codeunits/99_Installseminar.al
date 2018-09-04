@@ -1,4 +1,4 @@
-codeunit 123456799 "CSD Install Seminar"
+codeunit 123456799 InstallSeminar
 {
     Subtype = Install;
 
@@ -65,7 +65,7 @@ codeunit 123456799 "CSD Install Seminar"
         SourceCode.Code := 'SEMINAR';
         if SourceCode.Insert then;
         SourceCodeSetup.get;
-        //SourceCodeSetup."CSD Seminar" := 'SEMINAR';
+        SourceCodeSetup."CSD Seminar" := 'SEMINAR';
         SourceCodeSetup.modify;
      end;
     local procedure CreateSeminar();

@@ -1,11 +1,13 @@
-page 123456702 "CSD Seminar List"
+page 123456702"CSD Seminar List"
+// CSD1.00 - 2018-01-01 - D. E. Veloper
+// Chapter 5 - Lab 3-6
 {
+    Caption='Seminar List';
     PageType = List;
     SourceTable = "CSD Seminar";
-    Caption = 'Seminar List';
     Editable = false;
     CardPageId = 123456701;
-UsageCategory = Lists;
+    UsageCategory = Lists;
 
     layout
     {
@@ -13,35 +15,36 @@ UsageCategory = Lists;
         {
             repeater(Group)
             {
-
                 field("No."; "No.")
                 {
-
                 }
                 field(Name; Name)
-                { }
-                field("Seminar Duration"; "Seminar Duration")
-                { }
+                {
+                }
+                field("Seminar Duration";"Seminar Duration")
+                {
+                }
                 field("Seminar Price"; "Seminar Price")
-                { }
+                {
+                }
                 field("Minimum Participants"; "Minimum Participants")
                 {
-
                 }
                 field("Maximum Participants"; "Maximum Participants")
-                { }
-
+                {
+                }
             }
         }
         area(FactBoxes)
         {
-            Systempart("Links"; Links)
-            { }
+            systempart("Links"; Links)
+            {
+            }
             systempart("Notes"; Notes)
             {
-
             }
         }
+
     }
 
     actions
@@ -52,21 +55,12 @@ UsageCategory = Lists;
             {
                 action("Co&mments")
                 {
-                    RunObject = page "CSD Seminar Comment Sheet";
-                    RunPageLink = "Table Name" = const (Seminar), "No." = field ("No.");
+                    RunObject=page"CSD Seminar Comment Sheet";
+                    RunPageLink = "Table Name"=const(Seminar),"No."=field("No.");
                     Image = Comment;
                     Promoted = true;
                     PromotedIsBig = true;
                     PromotedOnly = true;
-
-                }
-                action("Setup")
-                {
-                    RunObject = page "CSD Seminar Setup";
-                    
-                    Image = Setup;
-                    
-
                 }
             }
         }
